@@ -3,27 +3,74 @@
 import React from 'react'
 import BGM from './Sad-Violin.mp3'
 import './App.css'
-import { read } from 'fs';
+const TIME_OF_DEATH = '2019/01/23'
+const COUNTER_INTERVAL = 1000
 
 const AudioPlayer = props => {
-  const src = props.src
   return (
-    // <audio id="player" style={style} src={BGM} autoPlay loop />
     <div>
-      {/* <iframe src={src} allow="autoplay" id="audio" style={style}></iframe> */}
       <img id="play-button" src={require('./hand-click.png')} className="hand" width={80} alt="play" />
-      <audio id="player" src={src} loop preload="true"/>
+      <audio id="player" src={props.src} loop autoPlay preload="true"/>
     </div>
   )
 }
 
-const TIME_OF_DEATH = '2019/01/23'
+const CounterView = props =>{
+  const { days, hours, minutes, seconds } = props
+  return(
+    <div>
+      <div className="csvg-digit"
+          data-tad-bind="days">
+        <div className="csvg-digit-number"
+            id="el_dw1">
+          {days}
+        </div>
+        <div className="csvg-digit-label"
+            id="el_dw1t">
+          days
+        </div>
+      </div>
+      <div className="csvg-digit"
+          data-tad-bind="hours">
+        <div className="csvg-digit-number"
+            id="el_h1">
+          {hours}
+        </div>
+        <div className="csvg-digit-label"
+            id="el_h1t">
+          hours
+        </div>
+      </div>
+      <div className="csvg-digit"
+          data-tad-bind="minutes">
+        <div className="csvg-digit-number"
+            id="el_m1">
+          {minutes}
+        </div>
+        <div className="csvg-digit-label"
+            id="el_m1t">
+          minutes
+        </div>
+      </div>
+      <div className="csvg-digit"
+          data-tad-bind="seconds">
+        <div className="csvg-digit-number"
+            id="el_s1">
+          {seconds}
+        </div>
+        <div className="csvg-digit-label"
+            id="el_s1t">
+          seconds
+        </div>
+      </div>
+    </div>
+  )
+}
 
-class App extends React.Component {
+class Counter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      ready: false,
       days: 0,
       hours: 0,
       minutes: 0,
@@ -32,25 +79,14 @@ class App extends React.Component {
     }
   }
 
-  getReady(){
-    let player = document.getElementById('player')
-    player.play()
-
-    let playButton = document.getElementById('play-button')
-    playButton.style.display = 'none'
-
-    this.setState({ready: true})
-  }
-
   componentDidMount(){
-    document.body.addEventListener('click', this.getReady.bind(this))
     // initialize the state
     this.getDistance()
 
     // Update by the interval
     setInterval(() => {
       this.getDistance()
-    }, this.props.interlval || 1000);
+    }, COUNTER_INTERVAL);
   }
 
   getDistance() {
@@ -80,21 +116,7 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div className="csvg-countdown hasWeeks">
-        <AudioPlayer src={BGM} ready={this.state.ready}/>
-        <h1 className="csvg-title font-cursive"
-            data-tad-bind="title"
-            title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
-        <Counter interval={1000} {...this.state}/>
-      </div>
-    )
-  }
-}
-
-class Counter extends React.Component {
-  render() {
-    const { days, hours, minutes, seconds, ready } = this.props
+    const { ready } = this.props
 
     if (!ready) {
       return (<div></div>)
@@ -103,50 +125,7 @@ class Counter extends React.Component {
     return (
       <div>
         <h2 className="font-cursive">From {TIME_OF_DEATH}, has been dead for..</h2>
-        <div className="csvg-digit"
-            data-tad-bind="days">
-          <div className="csvg-digit-number"
-              id="el_dw1">
-            {days}
-          </div>
-          <div className="csvg-digit-label"
-              id="el_dw1t">
-            days
-          </div>
-        </div>
-        <div className="csvg-digit"
-            data-tad-bind="hours">
-          <div className="csvg-digit-number"
-              id="el_h1">
-            {hours}
-          </div>
-          <div className="csvg-digit-label"
-              id="el_h1t">
-            hours
-          </div>
-        </div>
-        <div className="csvg-digit"
-            data-tad-bind="minutes">
-          <div className="csvg-digit-number"
-              id="el_m1">
-            {minutes}
-          </div>
-          <div className="csvg-digit-label"
-              id="el_m1t">
-            minutes
-          </div>
-        </div>
-        <div className="csvg-digit"
-            data-tad-bind="seconds">
-          <div className="csvg-digit-number"
-              id="el_s1">
-            {seconds}
-          </div>
-          <div className="csvg-digit-label"
-              id="el_s1t">
-            seconds
-          </div>
-        </div>
+        <CounterView {...this.state} />
         <p>開很久？載入很慢嗎？</p>
         <p>很正常，因為我也『忘了』繳主機費</p>
         <p>所以......</p>
@@ -157,4 +136,47 @@ class Counter extends React.Component {
   }
 }
 
-export default App;
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      ready: false,
+    }
+  }
+
+  getPlayer() {
+    if (!this._player){
+      this._player = document.getElementById('player')
+    }
+    return this._player
+  }
+
+  componentDidMount(){
+    this.getPlayer().addEventListener('play', e =>{
+      console.log('player: start playing')
+
+      // disable play button
+      let playButton = document.getElementById('play-button')
+      playButton.style.display = 'none'
+
+      this.setState({ready: true})
+    })
+
+    document.body.addEventListener('click', e =>{
+      this.getPlayer().play()
+    })
+  }
+
+  render() {
+    const { ready } = this.state
+    return (
+      <div className="csvg-countdown hasWeeks">
+        <AudioPlayer src={BGM} ready={ready}/>
+        <h1 className="csvg-title font-cursive"
+            data-tad-bind="title"
+            title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
+        <Counter ready={ready}/>
+      </div>
+    )
+  }
+}
