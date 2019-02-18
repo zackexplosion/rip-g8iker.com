@@ -1,10 +1,43 @@
+// HTML struct and CSS style from:
+// https://www.timeanddate.com/countdown/create
 import React from 'react'
+import BGM from './Sad-Violin.mp3'
 import './App.css'
-const TIMER_INTERVAL = 1000
 
-class App extends React.Component {
+const AudioPlayer = props => {
+  document.body.addEventListener('click', e => {
+    let player = document.getElementById('player')
+    player.play()
+  })
+
+  return (
+    <audio id="player" style={{display:'none'}} src={BGM} autoPlay loop />
+  )
+}
+
+const TIME_OF_DEATH = '2019/01/23'
+
+const App = props => {
+  return (
+    <div className="csvg-countdown hasWeeks">
+      <AudioPlayer />
+      <h1 className="csvg-title font-cursive"
+          data-tad-bind="title"
+          title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
+      <h2 className="font-cursive">From {TIME_OF_DEATH}, has been dead for..</h2>
+      <Counter interval={1000} />
+      <p>開很久？載入很慢嗎？</p>
+      <p>很正常，因為我也『忘了』繳主機費</p>
+      <p>所以......</p>
+      <p>到底有沒有要花錢請人修啊XD</p>
+      <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p>
+    </div>
+  )
+}
+
+class Counter extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       ready: false,
       days: 0,
@@ -17,18 +50,19 @@ class App extends React.Component {
 
   componentDidMount(){
     this.setState({ready: true})
+
     // initialize the state
     this.getDistance()
 
     // Update by the interval
     setInterval(() => {
       this.getDistance()
-    }, TIMER_INTERVAL);
+    }, this.props.interlval || 1000);
   }
 
   getDistance() {
     // Set the date we're counting from
-    const countFromDate = new Date("2019/01/22").getTime();
+    const countFromDate = new Date(TIME_OF_DEATH).getTime();
 
     // Get todays date and time
     const now = new Date().getTime();
@@ -56,12 +90,9 @@ class App extends React.Component {
     if (!this.state.ready){
       return(<div>loading</div>)
     }
+
     return (
-      <div className="csvg-countdown hasWeeks">
-        <h1 className="csvg-title font-cursive"
-            data-tad-bind="title"
-            title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
-        <h2 className="font-cursive">From 2019/01/22, has dead for..</h2>
+      <div>
         <div className="csvg-digit"
             data-tad-bind="days">
           <div className="csvg-digit-number"
@@ -106,9 +137,7 @@ class App extends React.Component {
             seconds
           </div>
         </div>
-        <p>開很久？載入很慢嗎？很正常，因為我也『沒付錢』</p>
-        <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色跟暫停計時就好惹</p>
-       </div>
+      </div>
     )
   }
 }

@@ -663,6 +663,8 @@ body {
   margin: 0;
   padding: 0;
   background: #494c66;
+  width: 100vw;
+  height: 100vh;
   /* color: #EEE; */
 }
 
