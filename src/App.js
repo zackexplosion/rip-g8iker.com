@@ -3,7 +3,8 @@
 import React from 'react'
 import BGM from './Sad-Violin.mp3'
 import './App.css'
-const TIME_OF_DEATH = '2019/01/23'
+// const TIME_OF_DEATH = '2019/01/23'
+const TIME_OF_DEATH = '2019/01/14'
 const COUNTER_INTERVAL = 1000
 
 const AudioPlayer = props => {
