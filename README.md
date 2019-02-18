@@ -2,5 +2,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## STFU
 
-Just go to the webite to see the counter.
+Just go the webite and see the counter.
 [https://rip-g8iker.com](https://rip-g8iker.com)

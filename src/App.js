@@ -1,5 +1,7 @@
 import React from 'react'
 import './App.css'
+const TIMER_INTERVAL = 1000
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ class App extends React.Component {
     // Update by the interval
     setInterval(() => {
       this.getDistance()
-    }, 200);
+    }, TIMER_INTERVAL);
   }
 
   getDistance() {
@@ -104,7 +106,7 @@ class App extends React.Component {
             seconds
           </div>
         </div>
-        <p>開很久嗎？很正常，因為我也『沒付錢』</p>
+        <p>開很久？載入很慢嗎？很正常，因為我也『沒付錢』</p>
         <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色跟暫停計時就好惹</p>
        </div>
     )

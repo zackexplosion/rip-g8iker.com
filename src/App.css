@@ -366,10 +366,10 @@
     padding-top: 40px;
   }
 
-  /* h1.csvg-title
+  h1.csvg-title
   {
-    font-size: 20px;
-    position: absolute;
+    font-size: 50px;
+    /* position: absolute;
     top: 8px;
     left: 0;
     z-index: 2;
@@ -377,8 +377,8 @@
     width: 100%;
     pointer-events: none;
     text-align: left;
-    margin: 0;
-  } */
+    margin: 0; */
+  }
 
   .csvg-title.long
   {
