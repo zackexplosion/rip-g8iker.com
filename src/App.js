@@ -158,7 +158,7 @@ export default class App extends React.Component {
       // disable play button
       let playButton = document.getElementById('play-button')
       playButton.style.display = 'none'
-
+      window.gtag('event', 'played')
       this.setState({ready: true})
     })
 
