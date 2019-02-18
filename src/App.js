@@ -115,6 +115,10 @@ class Counter extends React.Component {
     })
   }
 
+  paperClick() {
+    window.gtag('event', 'click paper source')
+  }
+
   render() {
     const { ready } = this.props
 
@@ -130,7 +134,7 @@ class Counter extends React.Component {
         <p>很正常，因為我也『忘了』繳主機費</p>
         <p>所以......</p>
         <p>到底有沒有要花錢請人修啊XD</p>
-        <p>懶人包: <a target="_blank" href="https://goo.gl/dcL5XY" rel="noopener noreferrer">https://goo.gl/dcL5XY</a></p>
+        <p>懶人包: <a onClick={this.paperClick} target="_blank" href="https://goo.gl/dcL5XY" rel="noopener noreferrer">https://goo.gl/dcL5XY</a></p>
         <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p>
       </div>
     )
