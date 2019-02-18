@@ -3,39 +3,23 @@
 import React from 'react'
 import BGM from './Sad-Violin.mp3'
 import './App.css'
+import { read } from 'fs';
 
 const AudioPlayer = props => {
-  document.body.addEventListener('click', e => {
-    let player = document.getElementById('player')
-    player.play()
-  })
-
+  const src = props.src
   return (
-    <audio id="player" style={{display:'none'}} src={BGM} autoPlay loop />
+    // <audio id="player" style={style} src={BGM} autoPlay loop />
+    <div>
+      {/* <iframe src={src} allow="autoplay" id="audio" style={style}></iframe> */}
+      <img id="play-button" src={require('./hand-click.png')} className="hand" width={80} alt="play" />
+      <audio id="player" src={src} loop preload="true"/>
+    </div>
   )
 }
 
 const TIME_OF_DEATH = '2019/01/23'
 
-const App = props => {
-  return (
-    <div className="csvg-countdown hasWeeks">
-      <AudioPlayer />
-      <h1 className="csvg-title font-cursive"
-          data-tad-bind="title"
-          title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
-      <h2 className="font-cursive">From {TIME_OF_DEATH}, has been dead for..</h2>
-      <Counter interval={1000} />
-      <p>開很久？載入很慢嗎？</p>
-      <p>很正常，因為我也『忘了』繳主機費</p>
-      <p>所以......</p>
-      <p>到底有沒有要花錢請人修啊XD</p>
-      <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p>
-    </div>
-  )
-}
-
-class Counter extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -48,9 +32,18 @@ class Counter extends React.Component {
     }
   }
 
-  componentDidMount(){
-    this.setState({ready: true})
+  getReady(){
+    let player = document.getElementById('player')
+    player.play()
 
+    let playButton = document.getElementById('play-button')
+    playButton.style.display = 'none'
+
+    this.setState({ready: true})
+  }
+
+  componentDidMount(){
+    document.body.addEventListener('click', this.getReady.bind(this))
     // initialize the state
     this.getDistance()
 
@@ -87,17 +80,34 @@ class Counter extends React.Component {
   }
 
   render() {
-    if (!this.state.ready){
-      return(<div>loading</div>)
+    return (
+      <div className="csvg-countdown hasWeeks">
+        <AudioPlayer src={BGM} ready={this.state.ready}/>
+        <h1 className="csvg-title font-cursive"
+            data-tad-bind="title"
+            title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
+        <Counter interval={1000} {...this.state}/>
+      </div>
+    )
+  }
+}
+
+class Counter extends React.Component {
+  render() {
+    const { days, hours, minutes, seconds, ready } = this.props
+
+    if (!ready) {
+      return (<div></div>)
     }
 
     return (
       <div>
+        <h2 className="font-cursive">From {TIME_OF_DEATH}, has been dead for..</h2>
         <div className="csvg-digit"
             data-tad-bind="days">
           <div className="csvg-digit-number"
               id="el_dw1">
-            {this.state.days}
+            {days}
           </div>
           <div className="csvg-digit-label"
               id="el_dw1t">
@@ -108,7 +118,7 @@ class Counter extends React.Component {
             data-tad-bind="hours">
           <div className="csvg-digit-number"
               id="el_h1">
-            {this.state.hours}
+            {hours}
           </div>
           <div className="csvg-digit-label"
               id="el_h1t">
@@ -119,7 +129,7 @@ class Counter extends React.Component {
             data-tad-bind="minutes">
           <div className="csvg-digit-number"
               id="el_m1">
-            {this.state.minutes}
+            {minutes}
           </div>
           <div className="csvg-digit-label"
               id="el_m1t">
@@ -130,13 +140,18 @@ class Counter extends React.Component {
             data-tad-bind="seconds">
           <div className="csvg-digit-number"
               id="el_s1">
-            {this.state.seconds}
+            {seconds}
           </div>
           <div className="csvg-digit-label"
               id="el_s1t">
             seconds
           </div>
         </div>
+        <p>開很久？載入很慢嗎？</p>
+        <p>很正常，因為我也『忘了』繳主機費</p>
+        <p>所以......</p>
+        <p>到底有沒有要花錢請人修啊XD</p>
+        <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p>
       </div>
     )
   }
