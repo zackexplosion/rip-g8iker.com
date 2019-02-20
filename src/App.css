@@ -104,7 +104,9 @@
   bottom: 0;
   margin: auto;
 }
-
+.ready-true.csvg-countdown{
+  margin-top: 60px;
+}
 .csvg-countdown
 {
   position: absolute;
@@ -320,9 +322,8 @@
 {
   .csvg-countdown
   {
-    height: 209px;
+    height: 550px;
   }
-
   .csvg-title
   {
     font-size: 40px;
@@ -653,7 +654,7 @@
   }
 }
 
-.csvg-title{font-size:70px;margin:0 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#FFF;border:none}
+.csvg-title{font-size:70px;margin:0 auto;overflow:hidden;text-overflow:ellipsis;color:#FFF;border:none}
 
 body {
   font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial,
@@ -727,4 +728,15 @@ nav a {
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+
+.screenshot{
+  width: 50%;
+  /* position: absolute; */
+  left: 25%;
+}
+
+.screenshot:hover{
+  cursor: pointer;
 }

@@ -2,6 +2,7 @@
 // https://www.timeanddate.com/countdown/create
 import React from 'react'
 import BGM from './Sad-Violin.mp3'
+import screenshot from './screenshot.png'
 import './App.css'
 // const TIME_OF_DEATH = '2019/01/23'
 const TIME_OF_DEATH = '2019/01/14'
@@ -129,7 +130,7 @@ class Counter extends React.Component {
 
     return (
       <div>
-        <h2 className="font-cursive">From {TIME_OF_DEATH}, has been dead for..</h2>
+        <h2 className="font-cursive">From time of death, has been gone for..</h2>
         <CounterView {...this.state} />
         <p>開很久？載入很慢嗎？</p>
         <p>很正常，因為我也『忘了』繳主機費</p>
@@ -176,11 +177,14 @@ export default class App extends React.Component {
   render() {
     const { ready } = this.state
     return (
-      <div className="csvg-countdown hasWeeks">
+      <div className={`csvg-countdown hasWeeks ready-${ready}`}>
         <AudioPlayer src={BGM} ready={ready}/>
-        <h1 className="csvg-title font-cursive"
-            data-tad-bind="title"
-            title="Countdown Timer">RIP <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a></h1>
+        <img className="screenshot" src={screenshot} alt="black and white screenshot"/>
+        <h1 className="csvg-title font-cursive">
+          In the memoery of  <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a> <br />
+          {/* 2015/10/31 ~ {TIME_OF_DEATH} <br /> */}
+          RIP
+        </h1>
         <Counter ready={ready}/>
       </div>
     )
