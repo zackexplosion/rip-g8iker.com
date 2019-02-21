@@ -665,7 +665,7 @@ body {
   padding: 0;
   background: #494c66;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   /* color: #EEE; */
 }
 
@@ -732,9 +732,9 @@ nav a {
 
 
 .screenshot{
-  width: 50%;
+  width: 33%;
+  text-align: center;
   /* position: absolute; */
-  left: 25%;
 }
 
 .screenshot:hover{
