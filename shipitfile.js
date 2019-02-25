@@ -1,6 +1,6 @@
 module.exports = function (shipit) {
   require('shipit-deploy')(shipit)
-  require('shipit-assets')(shipit)
+  // require('shipit-assets')(shipit)
 
   shipit.initConfig({
     // branch: 'supplier-login',
@@ -16,25 +16,33 @@ module.exports = function (shipit) {
       }
     },
     production: {
-      servers: 'zack@zackexplosion-fun.us-west1-b.infinite-loader-151509'
+      servers: 'zack@YEE'
     }
   })
-
+  const YARN = '/home/zack/.nvm/versions/node/v8.12.0/bin/yarn'
   shipit.on('deployed', async function () {
     // var shared_path = `${shipit.config.deployTo}/shared`
     try {
-      await shipit.remote(`cd ${shipit.currentPath} && nvm use && yarn`)
+      await shipit.remote(`cd ${shipit.currentPath} && nvm use && ${YARN}`)
 
       // await Promise.all([
       //   shipit.local('yarn build'),
       //   shipit.remote(`ln -nfs ${shared_path}/.env ${shipit.currentPath}/.env`)
       // ])
-      await shipit.local('yarn build'),
-      await shipit.start('assets:push')
+      // await shipit.l¡ocal('yarn build'),
+      // await shipit.start('assets:push')
+      await shipit.copyToRemote(
+        './build',
+        `${shipit.currentPath}/build`,
+      )
     } catch (error) {
       console.log(error)
     }
 
-    shipit.remote('NODE_ENV=production node server.js')
+    shipit.start('startApp')
+  })
+
+  shipit.task('startApp', async () => {
+    await shipit.remote(`pm2 start ${shipit.currentPath}/server.js`)
   })
 }

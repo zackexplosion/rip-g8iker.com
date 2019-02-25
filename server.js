@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const env = process.env.NODE_ENV || 'development'
 const PORT = process.env.PORT || 8080
-const HOST = '0.0.0.0'
+const HOST = 'localhost'
 const TIME_OF_DEATH = '2019/01/14'
 
 // App
