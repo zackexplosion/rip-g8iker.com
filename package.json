@@ -1,12 +1,6 @@
 {
   "name": "rip-g8iker.com",
   "version": "1.0.0f",
-  "dependencies": {
-    "gh-pages": "^2.0.1",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-scripts": "2.1.5"
-  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -24,5 +18,16 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "2.1.5",
+    "webpack": "^4.29.5",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }

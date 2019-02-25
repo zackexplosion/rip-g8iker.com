@@ -19,7 +19,7 @@ const AudioPlayer = props => {
 
 const CounterView = props =>{
   const { days, hours, minutes, seconds } = props
-  return(
+  return (
     <div>
       <div className="csvg-digit"
           data-tad-bind="days">
@@ -77,35 +77,40 @@ class Counter extends React.Component {
       hours: 0,
       minutes: 0,
       seconds: 0,
+      alive: false,
       // m: 0
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // initialize the state
     this.getDistance()
-
+    this.checkIfAlive()
     // Update by the interval
     setInterval(() => {
       this.getDistance()
-    }, COUNTER_INTERVAL);
+    }, COUNTER_INTERVAL)
+  }
+
+  checkIfAlive() {
+
   }
 
   getDistance() {
     // Set the date we're counting from
-    const countFromDate = new Date(TIME_OF_DEATH).getTime();
+    const countFromDate = new Date(TIME_OF_DEATH).getTime()
 
     // Get todays date and time
-    const now = new Date().getTime();
+    const now = new Date().getTime()
 
     // Find the distance between now and the date from
-    const distance = now - countFromDate;
+    const distance = now - countFromDate
 
     // Time calculations for days, hours, minutes and seconds
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000)
     // const ms = Math.floor((distance % 1000));
     // const ms = distance
     this.setState({
@@ -152,13 +157,13 @@ export default class App extends React.Component {
   }
 
   getPlayer() {
-    if (!this._player){
+    if (!this._player) {
       this._player = document.getElementById('player')
     }
     return this._player
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getPlayer().addEventListener('play', e =>{
       console.log('player: start playing')
 
