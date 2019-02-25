@@ -1,6 +1,5 @@
 module.exports = function (shipit) {
   require('shipit-deploy')(shipit)
-  // require('shipit-assets')(shipit)
 
   shipit.initConfig({
     // branch: 'supplier-login',
@@ -8,12 +7,6 @@ module.exports = function (shipit) {
       workspace: '/tmp/github-monitor',
       deployTo: '/app/rip-g8iker',
       repositoryUrl: 'https://github.com/zackexplosion/rip-g8iker.com',
-      assets: {
-        remoteBasePath: '/app/rip-g8iker/current/build',
-        'paths': [
-          'build'
-        ]
-      }
     },
     production: {
       servers: 'zack@YEE'
@@ -33,7 +26,7 @@ module.exports = function (shipit) {
       // await shipit.start('assets:push')
       await shipit.copyToRemote(
         './build',
-        `${shipit.currentPath}/build`,
+        shipit.currentPath,
       )
     } catch (error) {
       console.log(error)
