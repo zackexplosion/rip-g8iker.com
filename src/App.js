@@ -88,43 +88,15 @@ class Counter extends React.Component {
   }
 
   componentDidMount() {
-    const socket = io('http://0.0.0.0:8080/')
-    // initialize the state
-    this.getDistance()
-    this.checkIfAlive()
-    // Update by the interval
-    setInterval(() => {
-      this.getDistance()
-    }, COUNTER_INTERVAL)
-  }
+    const socket = io('/')
 
-  checkIfAlive() {
-
-  }
-
-  getDistance() {
-    // Set the date we're counting from
-    const countFromDate = new Date(TIME_OF_DEATH).getTime()
-
-    // Get todays date and time
-    const now = new Date().getTime()
-
-    // Find the distance between now and the date from
-    const distance = now - countFromDate
-
-    // Time calculations for days, hours, minutes and seconds
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-    // const ms = Math.floor((distance % 1000));
-    // const ms = distance
-    this.setState({
-      days,
-      hours,
-      minutes,
-      seconds,
-      // ms
+    socket.on('getDistance', t =>{
+      this.setState({
+        days: t[0],
+        hours: t[1],
+        minutes: t[2],
+        seconds: t[3],
+      })
     })
   }
 
