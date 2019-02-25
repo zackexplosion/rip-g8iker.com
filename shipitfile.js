@@ -12,11 +12,11 @@ module.exports = function (shipit) {
       servers: 'zack@YEE'
     }
   })
-  const YARN = '/home/zack/.nvm/versions/node/v8.12.0/bin/yarn'
+
   shipit.on('deployed', async function () {
     // var shared_path = `${shipit.config.deployTo}/shared`
     try {
-      await shipit.remote(`cd ${shipit.currentPath} && nvm use && ${YARN}`)
+      await shipit.remote(`cd ${shipit.currentPath} && nvm use && yarn`)
 
       // await Promise.all([
       //   shipit.local('yarn build'),
@@ -36,6 +36,13 @@ module.exports = function (shipit) {
   })
 
   shipit.task('startApp', async () => {
-    await shipit.remote(`pm2 start ${shipit.currentPath}/server.js`)
+    const name = 'rip-g8iker'
+    const current_path = `${shipit.config.deployTo}/current`
+    try {
+      await shipit.remote(`pm2 start ${current_path}/server.js --name ${name}`)
+    } catch (error) {
+      await shipit.remote(`pm2 restart ${name}`)
+    }
+
   })
 }

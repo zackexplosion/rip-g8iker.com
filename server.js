@@ -24,10 +24,10 @@ if (env === 'development') {
   }))
   // app.use(require('webpack-hot-middleware')(compiler))
 } else {
-  app.use(express.static('./build'))
+  app.use(express.static(`${__dirname}/build`))
 }
 
-app.use(express.static('./public'))
+app.use(express.static(`${__dirname}/public`))
 
 const getDistance = () => {
   // Set the date we're counting from
