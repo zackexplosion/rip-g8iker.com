@@ -4,6 +4,11 @@ import React from 'react'
 import BGM from './Sad-Violin.mp3'
 import screenshot from './screenshot.png'
 import './App.css'
+
+// with ES6 import
+import io from 'socket.io-client'
+
+
 // const TIME_OF_DEATH = '2019/01/23'
 const TIME_OF_DEATH = '2019/01/14'
 const COUNTER_INTERVAL = 1000
@@ -83,6 +88,7 @@ class Counter extends React.Component {
   }
 
   componentDidMount() {
+    const socket = io('http://0.0.0.0:8080/')
     // initialize the state
     this.getDistance()
     this.checkIfAlive()

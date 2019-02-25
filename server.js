@@ -8,6 +8,8 @@ const HOST = '0.0.0.0'
 
 // App
 const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
 
 if (env === 'development') {
   const webpackConfig = require('./config/webpack.config')(env)
@@ -24,10 +26,11 @@ if (env === 'development') {
   app.use(express.static('./build'))
 }
 
+app.use(express.static('./public'))
 
-// app.get('/', (req, res) => {
-//   res.send('Hello world\n')
-// })
+io.on('connection', function(socket) {
+  console.log('a user connected')
+})
 
-app.listen(PORT, HOST)
+server.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
