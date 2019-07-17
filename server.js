@@ -6,6 +6,7 @@ const env = process.env.NODE_ENV || 'development'
 const PORT = process.env.PORT || 8080
 const HOST = 'localhost'
 const TIME_OF_DEATH = '2019/01/14'
+const TIME_OF_DEAD_DEAD = '2019/07/17 00:00:00'
 
 // App
 const app = express()
@@ -34,7 +35,7 @@ const getDistance = () => {
   const countFromDate = new Date(TIME_OF_DEATH).getTime()
 
   // Get todays date and time
-  const now = new Date().getTime()
+  const now = new Date(TIME_OF_DEAD_DEAD).getTime()
 
   // Find the distance between now and the date from
   const distance = now - countFromDate

@@ -2,7 +2,7 @@
 // https://www.timeanddate.com/countdown/create
 import React from 'react'
 import BGM from './Sad-Violin.mp3'
-import screenshot from './screenshot.png'
+import screenshot from './screenshot-deaddead.jpg'
 import './App.css'
 
 // with ES6 import
@@ -113,14 +113,12 @@ class Counter extends React.Component {
 
     return (
       <div>
-        <h2 className="font-cursive">From time of death, has been gone for..</h2>
+        <h2 className="font-cursive">Dead Dead From 2019/07/17!</h2>
         <CounterView {...this.state} />
         <p>開很久？載入很慢嗎？</p>
         <p>很正常，因為我也『忘了』繳主機費</p>
-        <p>所以......</p>
-        <p>到底有沒有要花錢請人修啊XD</p>
-        <p>懶人包: <a onClick={this.paperClick} target="_blank" href="https://goo.gl/dcL5XY" rel="noopener noreferrer">https://goo.gl/dcL5XY</a></p>
-        <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p>
+        <p>G8恩仇錄: <a onClick={this.paperClick} target="_blank" href="https://goo.gl/dcL5XY" rel="noopener noreferrer">https://goo.gl/dcL5XY</a></p>
+        {/* <p className="is-alive">復活了嗎？我想應該是不會吧，ㄏㄏ，有活的話再改顏色然後暫停計時就好惹</p> */}
       </div>
     )
   }
@@ -164,9 +162,10 @@ export default class App extends React.Component {
         <AudioPlayer src={BGM} ready={ready}/>
         <img className="screenshot" src={screenshot} alt="black and white screenshot"/>
         <h1 className="csvg-title font-cursive">
-          In the memoery of  <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a> <br />
+          喔喔喔，死了又活耶!!<br /> 用WIX做居然搞了大半年XD
+          {/* In the memoery of  <a target="_blank" href="https://G8iker.com" rel="noopener noreferrer">G8iker.com</a> <br /> */}
           {/* 2015/10/31 ~ {TIME_OF_DEATH} <br /> */}
-          RIP
+          {/* RIP */}
         </h1>
         <Counter ready={ready}/>
       </div>
